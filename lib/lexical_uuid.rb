@@ -22,7 +22,7 @@ class LexicalUUID
 
   def initialize(timestamp = nil, worker_id = nil, timestamp_factory = IncreasingMicrosecondClock)
     case timestamp
-    when Fixnum, Bignum
+    when Integer
       @timestamp = timestamp
       @worker_id = worker_id || self.class.worker_id
     when String
@@ -33,7 +33,7 @@ class LexicalUUID
         elements = timestamp.split("-")
         from_bytes(Array(elements.join).pack('H32'))
       else
-        raise ArgumentError, 
+        raise ArgumentError,
           "#{timestamp} was incorrectly sized. Must be 16 timestamp."
       end
     when Time
@@ -61,7 +61,7 @@ class LexicalUUID
   end
 
   def <=>(other)
-    timestamp == other.timestamp ? 
+    timestamp == other.timestamp ?
       worker_id <=> other.worker_id : timestamp <=> other.timestamp
   end
 
