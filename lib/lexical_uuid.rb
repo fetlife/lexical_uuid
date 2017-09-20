@@ -12,7 +12,7 @@ class LexicalUUID
 
     private
       def create_worker_id
-        fqdn = Socket.gethostbyname(Socket.gethostname).first
+        fqdn = Socket.gethostname
         pid  = Process.pid
         FNV.new.fnv1a_64("#{fqdn}-#{pid}")
       end
